@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', App\Livewire\Sesis\Index::class)->name('sesis.index');
+Route::get('/create', App\Livewire\Sesis\Create::class)->name('sesis.create');
+Route::get('/edit/{id}', App\Livewire\Sesis\Detail::class)->name('sesis.detail');
