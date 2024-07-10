@@ -14,4 +14,17 @@ class Index extends Component
             'sesis' => Sesi::latest()->paginate(5)
         ]);
     }
+
+    public function destroy($id)
+    {
+        //destroy
+        Sesi::destroy($id);
+
+        //flash message
+        session()->flash('message', 'Data Berhasil Dihapus.');
+
+        //redirect
+        return redirect()->route('sesis.index');
+    }
+
 }

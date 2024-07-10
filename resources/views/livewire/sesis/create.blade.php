@@ -10,20 +10,20 @@
                     <input type="date" wire:model="tanggal_sesi" class="form-control" id="tanggal_sesi" placeholder="Tanggal Sesi">
                 </div>
                 <div class="col-6">
-                    <label for="total_opening" class="form-label" id="default">Total Opening</label>
+                    <label for="opening_total" class="form-label" id="default">Total Opening</label>
                     <div class="input-group">
                         <div class="input-group-text">Rp</div>
-                        <input type="text" wire:model="total_opening" class="form-control input-currency" id="total_opening" placeholder="Total Opening">
+                        <input type="text" wire:model="total_opening" class="form-control input-currency" id="opening_total" placeholder="Total Opening">
                     </div>
                 </div>
                 <div class="b-example-divider"></div>
                 @error('tanggal_sesi')
-                <div class="alert alert-danger mt-2">
+                <div class="alert alert-danger mt-2 alert-dismissible">
                     {{ $message }}
                 </div>
                 @enderror
                 @error('total_opening')
-                <div class="alert alert-danger mt-2">
+                <div class="alert alert-danger mt-2 alert-dismissible">
                     {{ $message }}
                 </div>
                 @enderror
@@ -31,4 +31,35 @@
             </form>
         </div>
     </div>
+
+    <script>
+
+        let opening_total = document.getElementById('opening_total');
+        opening_total.addEventListener('keyup', function()
+        {
+            opening_total.value = formatRupiah(this.value, '');
+        });
+
+        function formatRupiah(angka, prefix)
+        {
+            let number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substring(0, sisa),
+                ribuan = split[0].substring(sisa).match(/\d{3}/gi);
+
+            let separator;
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix === undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+    </script>
+
 </div>
+
+

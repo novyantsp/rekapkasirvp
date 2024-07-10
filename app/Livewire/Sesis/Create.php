@@ -19,7 +19,7 @@ class Create extends Component
     /**
      * store
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -28,7 +28,12 @@ class Create extends Component
         //create post
         Sesi::create([
             'tanggal_sesi' => $this->tanggal_sesi,
-            'total_opening' => $this->total_opening,
+            'total_opening' => str_replace('.','',$this->total_opening),
+            'total_pos' => 0,
+            'total_kasir' => 0,
+            'opening_next_day' => 0,
+            'selisih' => 0,
+            'setoran' => 0,
         ]);
 
         //flash message
@@ -41,7 +46,7 @@ class Create extends Component
     /**
      * render
      *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function render()
     {

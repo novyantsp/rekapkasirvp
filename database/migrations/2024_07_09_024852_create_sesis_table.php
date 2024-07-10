@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal_sesi');
             $table->bigInteger('total_opening');
+            $table->bigInteger('total_pos');
+            $table->bigInteger('total_kasir');
+            $table->bigInteger('opening_next_day');
+            $table->bigInteger('selisih');
+            $table->bigInteger('setoran');
             $table->timestamps();
         });
     }
